@@ -1,0 +1,2161 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{w207\_Final\_Jake\_Tim\_Pierce\_Debasish}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{W207 Spring 2019 Final
+Project}\label{w207-spring-2019-final-project}
+
+\subsection{Kaggle Competition: Forest Cover
+Prediction}\label{kaggle-competition-forest-cover-prediction}
+
+\textbf{Pierce Coggins, Jake Mitchell, Debasish Mukhopadhyay, and Tim
+Slade}
+
+    \section{Table of Contents/Section
+Notes}\label{table-of-contentssection-notes}
+
+    \begin{itemize}
+\tightlist
+\item
+  Section \ref{introduction}
+\item
+  In which we discuss the problem and why it matters
+\item
+  Section \ref{housekeeping}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    In which we deal with basic prep and setup issues
+  \end{itemize}
+\item
+  Section \ref{aboutthedata}
+\item
+  EDA, charts, data cleaning
+\item
+  Section \ref{featureengineering}
+\item
+  Describe a basic model that we will use to test the usefulness of new
+  features (LR or NB)
+\item
+  Normalization
+\item
+  Each added or removed feature
+\item
+  Section \ref{models}
+\item
+  Maybe choose 4 to test out? Don't want this section to get too
+  lengthy, and each model should be covered in some detail
+\item
+  Section \ref{results}
+\item
+  What went well, what went poorly
+\item
+  Final comparison of models on test data
+\item
+  Section \ref{conclusion}
+\item
+  Section \ref{annexa}
+\end{itemize}
+
+     \# Introduction
+
+    In this report, we will attempt to predict the forest cover type
+(defined as the predominant type of tree cover) for a given area of land
+in Colorado given only cartographic variables as inputs. This problem
+and dataset were initially posted as a Kaggle competition in 2015. We
+have chosen to tackle this problem as it allows for many different
+machine learning techniques to be attempted and explored. The report
+will go through the process of building a capable model from data
+cleaning through final testing.
+
+The problem of understanding what type of vegetation is present in a
+difficult to access area is a surprisingly important one. In this
+particular example the forests of Colorado are very diverse, and each
+type of tree cover has its own benefits and dangers. For example, many
+of the pine trees in Colorado are susceptible to the
+\href{https://csfs.colostate.edu/forest-management/common-forest-insects-diseases/mountain-pine-beetle/}{mountain
+pine beetle}, while the Spruce and Fir trees are relatively safe from
+the beetles. Without directly going to every location in the mountains
+of Colorado, it is very difficult to distinguish these types of trees as
+they look very similar from the air. It is relatively easy to get
+cartographic data for a large swath of the mountains, however, and if it
+is possible to accurately predict the tree type from the cartographic
+information alone then all of the Colorado forest could be mapped by
+likely forest cover type. That information would be invaluable to
+firefighters and forest service personnel to direct their efforts where
+it will have the most impact.
+
+If you would like to learn more about the problem or try for yourself,
+all information and data can be found from the kaggle
+competition:\href{https://www.kaggle.com/c/forest-cover-type-prediction}{Kaggle's
+Forest Cover Type Prediction}.
+
+     \#\# Housekeeping
+
+    \subsubsection{Importing Libraries, Helper Functions, and Loading
+Data}\label{importing-libraries-helper-functions-and-loading-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{capture}
+        \PYZsh{} \PYZpc{}matplotlib inline
+        \PYZsh{} \PYZpc{}matplotlib notebook
+        \PYZpc{}matplotlib qt
+        
+        \PYZsh{} General libraries
+        import pandas as pd
+        import numpy as np
+        import os
+        import copy
+        import warnings
+        import statsmodels.api as sm
+        from scipy import stats
+        import math
+        
+        \PYZsh{} Plotting and printing libraries
+        import matplotlib.pyplot as plt
+        import matplotlib.ticker as ticker
+        import matplotlib.patches as mpatches
+        from matplotlib.pyplot import figure, imshow, axis
+        from matplotlib.image import imread
+        import pprint
+        
+        \PYZsh{} Model\PYZhy{}building libraries
+        from sklearn.model\PYZus{}selection import train\PYZus{}test\PYZus{}split, StratifiedKFold
+        from sklearn.preprocessing import normalize, MinMaxScaler, StandardScaler, RobustScaler, Normalizer, scale
+        
+        \PYZsh{} SK\PYZhy{}learn libraries for learning
+        from sklearn.pipeline import Pipeline
+        from sklearn.neighbors import KNeighborsClassifier
+        from sklearn.linear\PYZus{}model import LogisticRegression, LinearRegression
+        from sklearn.naive\PYZus{}bayes import BernoulliNB, GaussianNB, MultinomialNB
+        from sklearn.model\PYZus{}selection import GridSearchCV
+        from sklearn.ensemble import GradientBoostingRegressor
+        from sklearn.ensemble import RandomForestClassifier, ExtraTreesClassifier
+        from sklearn.svm import SVC, LinearSVC
+        from sklearn.decomposition import PCA
+        from xgboost import XGBClassifier
+        
+        \PYZsh{} SK\PYZhy{}learn libraries for evaluation
+        from sklearn.metrics import confusion\PYZus{}matrix, classification\PYZus{}report
+        from sklearn import metrics
+        from sklearn.model\PYZus{}selection import cross\PYZus{}val\PYZus{}score
+        
+        import warnings
+        warnings.filterwarnings(\PYZsq{}ignore\PYZsq{})
+        
+        \PYZsh{} Run the helper functions notebook
+        \PYZpc{}run w207\PYZus{}final\PYZus{}helper\PYZus{}functions.ipynb
+\end{Verbatim}
+
+
+    The forest cover types we aim to predict are bundled with the features
+used to predict them. Our first step is therefore to separate them out,
+lest we accidentally let our models peek at the outcomes. We also want
+to split the dataset into \emph{train} and \emph{test} subsets; this
+will give us insight into how well our chosen models and parameters will
+perform against out-of-sample data.
+
+The original dataset contained 15,120 observations. We will train our
+models on 90\% of the data and hold out 10\% for testing. We thus expect
+to have approximately 0.9 * 15,120 = 13,608 observations in our training
+dataset.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{capture} \PYZhy{}\PYZhy{}no\PYZhy{}stdout \PYZhy{}\PYZhy{}no\PYZhy{}display
+        full\PYZus{}data = pd.DataFrame.from\PYZus{}csv(\PYZsq{}./train.csv\PYZsq{})
+        full\PYZus{}data.shape
+        
+        \PYZsh{} Separating out the labels
+        full\PYZus{}labels = full\PYZus{}data[\PYZsq{}Cover\PYZus{}Type\PYZsq{}]
+        full\PYZus{}features = full\PYZus{}data.drop(\PYZsq{}Cover\PYZus{}Type\PYZsq{}, axis=1)
+        
+        \PYZsh{} Setting seed so we get consistent results from our splitting
+        np.random.seed(0)
+        X\PYZus{}train, X\PYZus{}test, y\PYZus{}train, y\PYZus{}test = train\PYZus{}test\PYZus{}split(full\PYZus{}features, full\PYZus{}labels, test\PYZus{}size=0.10)
+        
+        \PYZsh{} Verifying our data shapes are as expected
+        print(f\PYZsq{}\PYZsq{}\PYZsq{}
+        \PYZob{}\PYZsq{}\PYZsq{}:\PYZca{}16\PYZcb{} | \PYZob{}\PYZsq{}Observations\PYZsq{}:\PYZca{}12\PYZcb{} | \PYZob{}\PYZsq{}Features\PYZsq{}:\PYZca{}10\PYZcb{} |
+        \PYZob{}\PYZsq{}\PYZhy{}\PYZsq{}*46\PYZcb{}
+        \PYZob{}\PYZsq{}Training dataset\PYZsq{}:\PYZca{}16\PYZcb{} | \PYZob{}X\PYZus{}train.shape[0]:\PYZca{}12\PYZcb{} | \PYZob{}X\PYZus{}train.shape[1]:\PYZca{}10\PYZcb{} |
+        \PYZob{}\PYZsq{}Training labels\PYZsq{}:\PYZca{}16\PYZcb{} | \PYZob{}y\PYZus{}train.shape[0]:\PYZca{}12\PYZcb{} | \PYZob{}\PYZsq{}\PYZhy{}\PYZhy{}\PYZsq{}:\PYZca{}10\PYZcb{} |
+        \PYZob{}\PYZsq{}Test dataset\PYZsq{}:\PYZca{}16\PYZcb{} | \PYZob{}X\PYZus{}test.shape[0]:\PYZca{}12\PYZcb{} | \PYZob{}X\PYZus{}test.shape[1]:\PYZca{}10\PYZcb{} |
+        \PYZob{}\PYZsq{}Test labels\PYZsq{}:\PYZca{}16\PYZcb{} | \PYZob{}y\PYZus{}test.shape[0]:\PYZca{}12\PYZcb{} | \PYZob{}\PYZsq{}\PYZhy{}\PYZhy{}\PYZsq{}:\PYZca{}10\PYZcb{} |
+        \PYZsq{}\PYZsq{}\PYZsq{})
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+                 | Observations |  Features  |
+----------------------------------------------
+Training dataset |    13608     |     54     |
+Training labels  |    13608     |     --     |
+  Test dataset   |     1512     |     54     |
+  Test labels    |     1512     |     --     |
+
+
+    \end{Verbatim}
+
+    
+
+     \# About the Data
+
+    The data comes from several wilderness areas in northern Colorado,
+specifically the Rawah Wilderness Area, Neota Wilderness Area, Comanche
+Peak Wilderness Area, and the Cache la Poudre Wilderness Area. These are
+all fairly remote areas of Colorado, which may be why they were chosen;
+there is less human influence in these places to complicate the
+prediction task.
+
+The features in the dataset are all cartographic measures of a 30x30m
+square plot of land. We have 10 simple features. The 11th and 12th -
+\texttt{wilderness\_area} and \texttt{soil\_type} - are categorical
+variables which are represented as 4 and 40 binary columns respectively
+in our dataset. We therefore have a total of 10 + 4 + 40 = 54 features
+to work with. The list below contains a short description of each
+feature, including where relevant its range, median, and mean. (See
+Section \ref{annexa} for the associated code and further discussion of
+the exploratory data analysis).
+
+\begin{itemize}
+\item
+  \texttt{Elevation}: \emph{Elevation in meters}
+\item
+  \textbf{Range}: 1863 to 3849 \textbar{} \textbf{Mean}: 2749.3
+  \textbar{} \textbf{Median}: 2752
+\item
+  \texttt{Aspect}: \emph{Aspect in degrees azimuth. i.e., degrees
+  clockwise from a line pointed at true North. So North = 0\(^\circ\),
+  East = 90\(^\circ\), South = 180\(^\circ\), and West = 270\(^\circ\)}
+\item
+  \textbf{Range}: 0 to 360 \textbar{} \textbf{Mean}: 156.7 \textbar{}
+  \textbf{Median}: 126.0
+\item
+  \texttt{Slope}: \emph{Slope in degrees. 0\(^\circ\) would indicate a
+  flat plane; greater values represent steeper slopes.}
+\item
+  \textbf{Range}: 0 to 52 \textbar{} \textbf{Mean}: 16.5 \textbar{}
+  \textbf{Median}: 15.0
+\item
+  \texttt{Horizontal\_Distance\_To\_Hydrology}: \emph{Horizontal
+  distance to nearest surface water features. Units unspecified.}
+\item
+  \textbf{Range}: 0 to 1343 \textbar{} \textbf{Mean}: 227.2 \textbar{}
+  \textbf{Median}: 180
+\item
+  \texttt{Vertical\_Distance\_To\_Hydrology}: \emph{Vertical distance to
+  nearest surface water features. Units unspecified.}
+\item
+  \textbf{Range}: -146 to 554 \textbar{} \textbf{Mean}: 51.1 \textbar{}
+  \textbf{Median}: 32.0
+\item
+  \texttt{Horizontal\_Distance\_To\_Roadways}: \emph{Horizontal distance
+  to nearest roadway. Units unspecified.}
+\item
+  \textbf{Range}: 0 to 6890 \textbar{} \textbf{Mean}: 1714.0 \textbar{}
+  \textbf{Median}: 1316
+\item
+  \texttt{Hillshade\_9am}: \emph{(0 to 255 index) - Hillshade index at
+  9am, summer solstice}
+\item
+  \textbf{Range}: 0 to 254 \textbar{} \textbf{Mean}: 212.7 \textbar{}
+  \textbf{Median}: 220
+\item
+  \texttt{Hillshade\_Noon}: \emph{(0 to 255 index) - Hillshade index at
+  noon, summer solstice}
+\item
+  \textbf{Range}: 99 to 254 \textbar{} \textbf{Mean}: 219.0 \textbar{}
+  \textbf{Median}: 223
+\item
+  \texttt{Hillshade\_3pm}: \emph{(0 to 255 index) - Hillshade index at
+  3pm, summer solstice}
+\item
+  \textbf{Range}: 0 to 248 \textbar{} \textbf{Mean}: 135.1 \textbar{}
+  \textbf{Median}: 138.0
+\item
+  \texttt{Horizontal\_Distance\_To\_Fire\_Points}: \emph{Horizontal
+  distance to nearest wildfire ignition points. Units unspecified.}
+\item
+  \textbf{Range}: 0 to 6993 \textbar{} \textbf{Mean}: 1511.2 \textbar{}
+  \textbf{Median}: 1256
+\item
+  \texttt{Wilderness\_Area}: \emph{(4 binary columns, 0 = absence or 1 =
+  presence) - Wilderness area designation}
+\item
+  \% of cases - \textbf{Area 1}: 24\% \textbar{}\textbar{} \textbf{Area
+  2}: 3\% \textbar{}\textbar{} \textbf{Area 3}: 42\%
+  \textbar{}\textbar{} \textbf{Area 4}: 31\%
+\item
+  \texttt{Soil\_Type}: \emph{(40 binary columns, 0 = absence or 1 =
+  presence) - Soil type designation}
+\item
+  The soil types descriptions can be found at the
+  \href{https://www.kaggle.com/c/forest-cover-type-prediction/data}{Kaggle
+  Competition Data Page}
+\end{itemize}
+
+    \subsubsection{Initial Exploration of the
+Challenge}\label{initial-exploration-of-the-challenge}
+
+The label indicating our data's categorization is contained in
+the\texttt{Cover\_Type} variable, and is split up into 7 different
+designations. While the tree species discussed in the Colorado State
+Forest Service's
+\href{https://csfs.colostate.edu/colorado-trees/colorados-major-tree-species/}{\emph{Colorado's
+Major Tree Species}} article do not map perfectly to these categories,
+the article provides some insights that may prove useful in our
+categorization exercise.
+
+\paragraph{\texorpdfstring{{Category 1}:
+'Spruce/Fir'}{Category 1: 'Spruce/Fir'}}\label{category-1-sprucefir}
+
+\begin{itemize}
+\tightlist
+\item
+  Species that might fit into this category include the \textbf{Blue
+  Spruce} (which thrives at an altitude of 6700-11500 ft in sandy soils
+  near moisture), the \textbf{Engelmann Spruce} (8000-11000 ft, moist
+  north-facing slopes), the \textbf{Subalpine Fir} (8000-12000 ft, cold
+  high-elevation forests), and the \textbf{White Fir} (7900-10200 ft,
+  moist soils in valleys).
+\end{itemize}
+
+Blue Spruce
+
+\textbar{}
+
+Engelmann Spruce
+
+\textbar{}
+
+Subalpine Fir
+
+\textbar{}
+
+White Fir
+
+\begin{itemize}
+\tightlist
+\item
+  \textbar{} - \textbar{} - \textbar{} - \textbar{} \textbar{}
+  \textbar{} 
+\end{itemize}
+
+    \paragraph{\texorpdfstring{{Category 2}: 'Lodgepole Pine' and {Category
+3}: 'Ponderosa
+Pine'}{Category 2: 'Lodgepole Pine' and Category 3: 'Ponderosa Pine'}}\label{category-2-lodgepole-pine-and-category-3-ponderosa-pine}
+
+\begin{itemize}
+\tightlist
+\item
+  The \textbf{Lodgepole Pine} thrives in well-drained soils at high
+  elevations (6000-11000 ft).
+\item
+  The \textbf{Ponderosa Pine} thrives in dry, nutrient-poor soils at
+  elevations of 6300-9500 ft. It is often found with Douglas Firs.
+\end{itemize}
+
+Lodgepole Pine
+
+\textbar{}
+
+Ponderosa Pine
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+&\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \paragraph{\texorpdfstring{{Category 4}:
+'Cottonwood/Willow'}{Category 4: 'Cottonwood/Willow'}}\label{category-4-cottonwoodwillow}
+
+\begin{itemize}
+\tightlist
+\item
+  Species that might fit into this category include the \textbf{Plains
+  Cottonwood} (which thrives at altitudes of 3500-6500 ft near sources
+  of water), the \textbf{Narrowleaf Cottonwood} (5000-8000 ft, moist
+  soils along streams), and the \textbf{Peachleaf Willow} (3500-7500 ft,
+  near water sources).
+\end{itemize}
+
+Plains Cottonwood
+
+\textbar{}
+
+Narrowleaf Cottonwood
+
+\textbar{}
+
+Peachleaf Willow
+
+\begin{longtable}[]{@{}lll@{}}
+\toprule
+& &\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \paragraph{\texorpdfstring{{Category 5}: 'Aspen' and {Category 6}:
+'Douglas
+Fir'}{Category 5: 'Aspen' and Category 6: 'Douglas Fir'}}\label{category-5-aspen-and-category-6-douglas-fir}
+
+\begin{itemize}
+\tightlist
+\item
+  The \textbf{Quaking Aspen} thrives at altitudes of 6500-11500 ft.
+  While it can be in many soil types, it is especially found on sandy
+  and gravelly slopes.
+\item
+  The \textbf{Douglas Fir} thrives at altitudes of 6000-9500 ft in rocky
+  soils of moist northern slopes.
+\end{itemize}
+
+Quaking Aspen
+
+\textbar{}
+
+Douglas Fir
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule
+&\tabularnewline
+\bottomrule
+\end{longtable}
+
+    \paragraph{\texorpdfstring{{Category 7}:
+'Krummholz'}{Category 7: 'Krummholz'}}\label{category-7-krummholz}
+
+\begin{itemize}
+\tightlist
+\item
+  Interestingly, \emph{krummholz} is not a species of tree; it is a type
+  of tree formation (which can emerge among various tree species) that
+  results from consistent long-term exposure to strong, cold winds. Per
+  \href{https://en.wikipedia.org/wiki/Krummholz}{Wikipedia}, Subalpine
+  Fir and Engelmann Spruce are often associated with Krummholz
+  conditions (as is Lodgepole Pine, although that is more common in
+  British Columbia).
+\end{itemize}
+
+Krummholz Banner Tree
+
+\textbar{}
+
+Krummholz White Pine
+
+\textbar{}
+
+Krummholz Bristlecone
+
+\begin{itemize}
+\tightlist
+\item
+  \textbar{}- \textbar{}- \textbar{} \textbar{} \textbar{} \textbar{}
+\end{itemize}
+
+    \subsubsection{Where do we start?}\label{where-do-we-start}
+
+The brief descriptions we've seen already suggest some avenues of
+exploration: altitude ranges and access to water seem to be of primary
+importance.
+
+\paragraph{What can we learn from elevation
+alone?}\label{what-can-we-learn-from-elevation-alone}
+
+One place to begin would be to plot out the idealized elevation ranges
+within which the various tree species thrive. There may be certain
+elevations where certain tree species would be far more prevalent than
+others. The graph below illustrates the ranges in which the species of
+trees discussed the Colorado State Forest Service's
+\href{https://csfs.colostate.edu/colorado-trees/colorados-major-tree-species/}{\emph{Colorado's
+Major Tree Species}} thrive, per the article.
+
+    
+
+    It appears that lower elevations would be strongly suggestive of the
+\texttt{Cottonwood/Willow} \texttt{Cover\_Type}, while higher elevations
+might be more suggestive of the \texttt{Spruce/Fir},
+\texttt{Lodgepole\ Pine}, \texttt{Aspen}, and \texttt{Krummholz}
+\texttt{Cover\_Type}s. The graph above is based upon idealized data from
+outside sources, though, and our actual dataset might tell a different
+story. The graphs below present the observed \emph{elevation} ranges and
+quartiles by \texttt{Cover\_Type} in our data.
+
+\textbar{}
+
+Elevation Ranges
+
+\textbar{}
+
+Elevation Quartiles
+
+\textbar{}-\textbar{}- \textbar{} \textbar{} \textbar{}
+
+    When looking at the ranges, our dataset appears to differ from the
+idealized one in that the \texttt{Cottonwood/Willow}
+\texttt{Cover\_Type} does not seem to occur at markedly lower
+elevations. When looking at the quartiles, though, patterns emerge that
+appear similar to what we would expect from the idealized presentation:
+\texttt{Cottonwood/Willow} tends to cluster at lower elevations, with
+the higher elevations dominated by \texttt{Spruce/Fir} and
+\texttt{Krummholz} cover types.
+
+The separations are surprisingly clean, suggesting that
+\texttt{Elevation} will be a powerful feature in our models. It might be
+especially powerful if we could develop a method to cluster the
+altitudes into the interquartile ranges presented in the model above.
+
+    \paragraph{What if we bring water into the
+picture?}\label{what-if-we-bring-water-into-the-picture}
+
+The other feature that the article suggests might be highly salient is
+moisture. How does the picture evolve if we add a measure of the
+distance to water to the mix?
+
+The graph below is a scatterplot of the Euclidean distance (derived from
+the \texttt{Horizontal\_Distance\_To\_Hydrology} and
+\texttt{Vertical\_Distance\_To\_Hydrology} features) and the
+\texttt{Elevation}, with data points colored by the
+\texttt{Cover\_Type}.
+
+    
+
+    The distance to hydrology appears to be informative:
+\texttt{Cover\_Type}s 3, 4, and 6 are essentially not found when the
+distance to water exceeds 750. That said, it remains clear that
+\texttt{Elevation} is the predominant distinguishing feature.
+
+\paragraph{What if we consider exposure to sunlight and
+wind?}\label{what-if-we-consider-exposure-to-sunlight-and-wind}
+
+From a layperson's perspective, the amount of sunlight to which a given
+plot of land is exposed would seem likely to influence the vegetation
+which thrives there. In our dataset, the \texttt{Hillshade} variables
+encode this information.
+
+The plot below compares the 1st quartile, median, and 3rd quartiles for
+each measure of \texttt{Hillshade} for each category of
+\texttt{Cover\_Type}.
+
+While the median \texttt{Hillshade} values appear to vary a little
+across categories in the morning and afternoon, the interquartile range
+largely overlaps across categories. The overall impression is that
+\texttt{Hillshade} is unlikely to be determinative on its own.
+
+Exposure to sunlight and wind would also be affected by the
+\texttt{Aspect}, which is essentially the compass direction (0\(^\circ\)
+is true North, 90\(^\circ\) is East, 180\(^\circ\) is South,
+270\(^\circ\) is West) the plot is facing. While the exact nature of the
+interaction between these features may not be clear \emph{a priori}, we
+can attempt to collapse the effect into a single feature by taking the
+first principal component of the \texttt{Hillshade\_9am} and
+\texttt{Hillshade\_3pm} features with the \texttt{Aspect} feature.
+
+The graph below plots this first principal component against
+\texttt{Elevation}, as we already know \texttt{Elevation} is strongly
+informative.
+
+    What patterns we see are weak at best. While the \texttt{Douglas\ Fir}
+category appears to be more prevalent for greater and lesser values of
+this first principal component, and the \texttt{Ponderosa\ Pine} appears
+to be slightly more prevalent nearer to zero, it is clear that the
+\texttt{Elevation} remains the dominant feature.
+
+    \paragraph{What about the 'Kitchen Sink'
+approach?}\label{what-about-the-kitchen-sink-approach}
+
+So far we've examined \texttt{Elevation}, \texttt{Hydrology},
+\texttt{Aspect}, and \texttt{Hillshade} features on the basis of the
+write-ups regarding the various tree species. But what if we just took a
+look at all of our key features and how they relate to one another?
+
+The graph below is a scatterplot matrix incorporating all of the raw
+simple features in our data, as well as the
+\texttt{Euclidean\_Distance\_To\_Hydrology} feature we composed from the
+horizontal and vertical distances to hydrology.
+
+    While \texttt{Elevation} remains the feature that seems to provide the
+cleanest separation between \texttt{Cover\_Type}s, two additional
+features seem to perform pretty well at discriminating the
+\texttt{Lodgepole\ Pine}s: \texttt{Horizontal\_Distance\_To\_Roadways}
+and \texttt{Horizontal\_Distance\_To\_Fire\_Points}.
+
+    \subsubsection{Cleaning the Data}\label{cleaning-the-data}
+
+While exploring the data (see Section \ref{annexa}), we noted that the
+\texttt{Soil\_Type7} and \texttt{Soil\_Type15} variables are never true.
+Because there is no variation in this feature, it contributes nothing to
+any of our models.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{c+c1}{\PYZsh{} Removing uninformative features}
+        \PY{n}{full\PYZus{}features} \PY{o}{=} \PY{n}{full\PYZus{}features}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type7}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type15}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+     \# Feature Engineering
+
+    Successful machine learning projects often depend heavily on feature
+engineering. The most important feature in a dataset may be a latent one
+- that is, 'hidden' behind other features which serves as proxies for
+it. In such a case, the latent feature needs to be explicitly extracted.
+While we are exploring the potential of various synthetic/constructed
+features, we will also try to remove original features which are proving
+uninformative. Doing so will reduce the noise passed into our models. We
+can keep the engineered and source datasets separate by creating a deep
+copy of the data.
+
+    \subsubsection{Euclidean Distance to
+Hydrology}\label{euclidean-distance-to-hydrology}
+
+    As we saw in the Section \ref{aboutthedata} section, the
+\texttt{Cover\_Type}s can be visually broken up based on their distance
+to hydrology, both horizontally and vertically. By combining the
+features into a single feature, we can reduce the overall number of
+features.
+
+    \subsubsection{Elevation of Hydrology}\label{elevation-of-hydrology}
+
+    Elevation and Hydrology are very important features when it comes to
+predicting the \texttt{Cover\_Type} of an area. By subtracting the
+vertical distance to hydrology from the elevation, we can find what the
+elevation of the hydrology itself it. This may prove useful by providing
+a feature that would be able to discern an alpine lake vs a valley
+stream.
+
+    \subsubsection{Mean Distance to Feature}\label{mean-distance-to-feature}
+
+    As we saw in the Section \ref{aboutthedata} section, the distance
+metrics group the data pretty well for classification. We can engineer a
+new feature that incorporates the mean distance to hydrology, fire
+points, and roadways - the latter two features providing a fair
+approximation of an area's remoteness.
+
+    \subsubsection{Stony}\label{stony}
+
+    This data set features 40 different types of soils. When compared to the
+7 possible labels, this number of soil types seems a bit extreme.
+Different types of trees favor more rocky soils, and so combining all of
+the stony soil types into a single feature will allow a model to more
+easily pick up on that.
+
+    \subsubsection{Hillshade}\label{hillshade}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{full\PYZus{}features}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}9am}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}3pm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}4}]:}        Hillshade\_9am  Hillshade\_3pm
+        count   15120.000000   15120.000000
+        mean      212.704299     135.091997
+        std        30.561287      45.895189
+        min         0.000000       0.000000
+        25\%       196.000000     106.000000
+        50\%       220.000000     138.000000
+        75\%       235.000000     167.000000
+        max       254.000000     248.000000
+\end{Verbatim}
+            
+    \subparagraph{Key Data Assumptions
+Made}\label{key-data-assumptions-made}
+
+One thing to notice about the data is that the \texttt{Hillshade\_9am}
+and \texttt{Hillshade\_3pm} features are missing several values. We
+choose to replace these values with the median value for those features.
+This will allow the areas with missing values to be more accurately
+classified as they no longer have un-usable data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{engineered\PYZus{}features} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{full\PYZus{}features}\PY{p}{)}
+        \PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Euclidean\PYZus{}Distance\PYZus{}To\PYZus{}Hydrology}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{engineered\PYZus{}features}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{row}\PY{p}{:} \PY{n}{math}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{row}\PY{o}{.}\PY{n}{Horizontal\PYZus{}Distance\PYZus{}To\PYZus{}Hydrology}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{row}\PY{o}{.}\PY{n}{Vertical\PYZus{}Distance\PYZus{}To\PYZus{}Hydrology}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Elevation\PYZus{}Of\PYZus{}Hydrology}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Elevation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vertical\PYZus{}Distance\PYZus{}To\PYZus{}Hydrology}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean\PYZus{}Distance\PYZus{}To\PYZus{}Feature}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Horizontal\PYZus{}Distance\PYZus{}To\PYZus{}Hydrology}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{+}\PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Horizontal\PYZus{}Distance\PYZus{}To\PYZus{}Roadways}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{+}\PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Horizontal\PYZus{}Distance\PYZus{}To\PYZus{}Fire\PYZus{}Points}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{l+m+mi}{3}
+        \PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Stony}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type2}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type6}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type9}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type12}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type18}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type24}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type25}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type26}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type27}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type28}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type29}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type30}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type31}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type33}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type34}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type35}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type36}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type37}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type38}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type39}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Soil\PYZus{}Type40}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{any}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{median\PYZus{}hillshade\PYZus{}9am} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}9am}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}9am}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{engineered\PYZus{}features}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{row}\PY{p}{:} \PY{n}{median\PYZus{}hillshade\PYZus{}9am} \PY{k}{if} \PY{n}{row}\PY{o}{.}\PY{n}{Hillshade\PYZus{}9am} \PY{o}{==} \PY{l+m+mi}{0} \PY{k}{else} \PY{n}{row}\PY{o}{.}\PY{n}{Hillshade\PYZus{}9am}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        \PY{n}{median\PYZus{}hillshade\PYZus{}3pm} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{median}\PY{p}{(}\PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}3pm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+        \PY{n}{engineered\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}3pm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{engineered\PYZus{}features}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{row}\PY{p}{:} \PY{n}{median\PYZus{}hillshade\PYZus{}3pm} \PY{k}{if} \PY{n}{row}\PY{o}{.}\PY{n}{Hillshade\PYZus{}3pm} \PY{o}{==} \PY{l+m+mi}{0} \PY{k}{else} \PY{n}{row}\PY{o}{.}\PY{n}{Hillshade\PYZus{}3pm}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+        
+        \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{seed}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+        \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}test} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{engineered\PYZus{}features}\PY{p}{,} \PY{n}{full\PYZus{}labels}\PY{p}{,} \PY{n}{test\PYZus{}size}\PY{o}{=}\PY{l+m+mf}{0.10}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsubsection{How to Test Feature
+Changes}\label{how-to-test-feature-changes}
+
+    Without \emph{a priori} knowledge of how the interplay between soil
+types, topography, hydrology, etc. affects forest cover, we need a way
+to view the performance of new features. As such we will use a simple
+Gaussian Naive Bayes model to do predictions, and quanitify the results
+using cross-validation. We will be tracking performance across
+precision, recall, and f1-score.
+
+    \paragraph{Naïve Bayes}\label{nauxefve-bayes}
+
+One reasonable place to begin might be a Naïve Bayes classifier. While
+it is unlikely that all of the features at our disposal are
+\emph{strictly} independent, we may be able to relax the assumption of
+independence enough to explore how a NB model performs.
+
+We don't want a Bernoulli NB model: our features are not uniformly
+binary-valued. We also don't want a Multinomial NB model: per the
+documentation, it assumes integer feature counts. A Gaussian NB, on the
+other hand, might work well. While it assumes that the likelihoods of
+the features are Gaussian - and this is not necessarily strictly the
+case - it may be worth trying.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{c+c1}{\PYZsh{} Testing on the base data}
+        \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{GaussianNB}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Base Data GaussianNB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        
+        \PY{c+c1}{\PYZsh{} Testing on the engineered data}
+        \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{GaussianNB}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Base Data GaussianNB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: Base Data GaussianNB, with 5 folds
+			Spruce/Fir           | precision:  0.72 | recall:  0.50 | f1-score:  0.59 | 
+			Lodgepole Pine       | precision:  0.13 | recall:  0.73 | f1-score:  0.22 | 
+			Ponderosa Pine       | precision:  0.73 | recall:  0.43 | f1-score:  0.54 | 
+			Cottonwood/Willow    | precision:  0.92 | recall:  0.68 | f1-score:  0.78 | 
+			Aspen                | precision:  0.73 | recall:  0.59 | f1-score:  0.65 | 
+			Douglas Fir          | precision:  0.07 | recall:  0.77 | f1-score:  0.12 | 
+			Krummholz            | precision:  0.82 | recall:  0.86 | f1-score:  0.84 | 
+			macro avg            | precision:  0.59 | recall:  0.65 | f1-score:  0.54 | 
+			micro avg            | precision:  0.59 | recall:  0.59 | f1-score:  0.59 | 
+			weighted avg         | precision:  0.76 | recall:  0.59 | f1-score:  0.65 | 
+
+Model: Base Data GaussianNB, with 5 folds
+			Spruce/Fir           | precision:  0.73 | recall:  0.53 | f1-score:  0.61 | 
+			Lodgepole Pine       | precision:  0.16 | recall:  0.73 | f1-score:  0.26 | 
+			Ponderosa Pine       | precision:  0.73 | recall:  0.44 | f1-score:  0.55 | 
+			Cottonwood/Willow    | precision:  0.93 | recall:  0.69 | f1-score:  0.79 | 
+			Aspen                | precision:  0.79 | recall:  0.62 | f1-score:  0.69 | 
+			Douglas Fir          | precision:  0.08 | recall:  0.80 | f1-score:  0.14 | 
+			Krummholz            | precision:  0.86 | recall:  0.85 | f1-score:  0.85 | 
+			macro avg            | precision:  0.61 | recall:  0.66 | f1-score:  0.56 | 
+			micro avg            | precision:  0.61 | recall:  0.61 | f1-score:  0.61 | 
+			weighted avg         | precision:  0.77 | recall:  0.61 | f1-score:  0.66 | 
+
+
+    \end{Verbatim}
+
+    In this report we will use two metrics to determine how well a
+particular model performs, precision and recall. All in all, just
+throwing a Gaussian Naive Bayes classifier at the data performed better
+than expected. It achieved a 76\% weighted precision across 5 fold cross
+validation.
+
+The engineered features do not provide as much improvement as hoped.
+They resulted in 1-2\% improvements across all of the metrics. One
+positive however is that the improved features seem to help the poorly
+classified labels more than the already well classified labels.
+
+    \subsubsection{Failed Engineered
+Features}\label{failed-engineered-features}
+
+    Not every feature that is engineered is a useful addition to the data
+set. Randomly adding new features can add noise to the dataset without
+providing any new information. We have listed the failed features below.
+Some highlights include mountain width and prominence (from the
+\texttt{Elevation} and \texttt{Slope} features), and a few different
+ways to view the elevation of an area.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{c+c1}{\PYZsh{} engineered\PYZus{}features[\PYZsq{}Elevation\PYZus{}Away\PYZus{}From\PYZus{}Hydrology\PYZsq{}] = engineered\PYZus{}features[\PYZsq{}Elevation\PYZsq{}]\PYZhy{}engineered\PYZus{}features[\PYZsq{}Horizontal\PYZus{}Distance\PYZus{}To\PYZus{}Hydrology\PYZsq{}]}
+        \PY{c+c1}{\PYZsh{} engineered\PYZus{}features[\PYZsq{}Mountain\PYZus{}Width\PYZsq{}] = engineered\PYZus{}features.apply(lambda row: row.Elevation/math.tan(math.radians(row.Slope+.1)), axis=1)}
+        \PY{c+c1}{\PYZsh{} engineered\PYZus{}features[\PYZsq{}Mountain\PYZus{}Prominence\PYZsq{}] = engineered\PYZus{}features.apply(lambda row: row.Elevation/math.sin(math.radians(row.Slope+.1)), axis=1)}
+        \PY{c+c1}{\PYZsh{} engineered\PYZus{}features[\PYZsq{}Mean\PYZus{}Hillshade\PYZsq{}] = engineered\PYZus{}features.apply(lambda row: (row.Hillshade\PYZus{}9am + row.Hillshade\PYZus{}Noon + row.Hillshade\PYZus{}3pm)/3, axis=1)}
+        \PY{c+c1}{\PYZsh{} engineered\PYZus{}features[\PYZsq{}Morning\PYZus{}Hillshade\PYZsq{}] = engineered\PYZus{}features.apply(lambda row: (row.Hillshade\PYZus{}9am * row.Hillshade\PYZus{}Noon), axis=1)}
+        \PY{c+c1}{\PYZsh{} engineered\PYZus{}features[\PYZsq{}Norm\PYZus{}Horizontal\PYZus{}Distance\PYZus{}To\PYZus{}Hydrology\PYZsq{}] = engineered\PYZus{}features[\PYZsq{}Horizontal\PYZus{}Distance\PYZus{}To\PYZus{}Hydrology\PYZsq{}]/(np.mean(engineered\PYZus{}features[\PYZsq{}Horizontal\PYZus{}Distance\PYZus{}To\PYZus{}Hydrology\PYZsq{}]))}
+        \PY{c+c1}{\PYZsh{} engineered\PYZus{}features[\PYZsq{}Norm\PYZus{}Elevation\PYZsq{}] = engineered\PYZus{}features[\PYZsq{}Elevation\PYZsq{}]/(np.mean(engineered\PYZus{}features[\PYZsq{}Elevation\PYZsq{}]))}
+        \PY{c+c1}{\PYZsh{} engineered\PYZus{}features[\PYZsq{}Log\PYZus{}Elevation\PYZsq{}] = engineered\PYZus{}features.apply(lambda row: math.log(row.Elevation), axis=1)}
+\end{Verbatim}
+
+
+    \subsubsection{Standardization of the
+Features}\label{standardization-of-the-features}
+
+    Standardization is a very important aspect of preparing data for
+consumption by machine learning models. It brings all of the features
+into a simlilar range, meaning that the models will not end up with
+widely varying coefficients due to the differing scales of features. By
+ensuring all features exist within a given range, we eliminate the
+possibility that a feature could dominate the weighting and prediction
+process simply by virtue of having a range that is a few orders of
+magnitude greater than that of another (potentially more meaningful)
+feature. We will experiment with several different types of
+standardization to see which is the most effective. Specifically we will
+test Min-Max scaling, standard scaling, robust scaling and sklearn's
+normalizer.
+
+    \paragraph{Evaluating standardization using K-Nearest
+Neighbors}\label{evaluating-standardization-using-k-nearest-neighbors}
+
+    One issue with Naïve Bayes models is that they are more or less
+invariant to feature scaling, and therefore cannot be used when testing
+different standardization methods. We will use the
+\texttt{KNearestClassifier} with \emph{K = 3} when testing out our
+performance on scaled data. In testing a variety of values for
+\texttt{K}, we found that \emph{K = 3} consistently produced the best
+results.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{c+c1}{\PYZsh{} Testing on the unscaled data}
+        \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 Nearest Neighbors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: 3 Nearest Neighbors, with 5 folds
+			Spruce/Fir           | precision:  0.66 | recall:  0.74 | f1-score:  0.70 | 
+			Lodgepole Pine       | precision:  0.58 | recall:  0.71 | f1-score:  0.64 | 
+			Ponderosa Pine       | precision:  0.74 | recall:  0.83 | f1-score:  0.78 | 
+			Cottonwood/Willow    | precision:  0.96 | recall:  0.90 | f1-score:  0.93 | 
+			Aspen                | precision:  0.96 | recall:  0.83 | f1-score:  0.89 | 
+			Douglas Fir          | precision:  0.85 | recall:  0.80 | f1-score:  0.82 | 
+			Krummholz            | precision:  0.97 | recall:  0.88 | f1-score:  0.92 | 
+			macro avg            | precision:  0.82 | recall:  0.81 | f1-score:  0.81 | 
+			micro avg            | precision:  0.82 | recall:  0.82 | f1-score:  0.82 | 
+			weighted avg         | precision:  0.84 | recall:  0.82 | f1-score:  0.82 | 
+
+
+    \end{Verbatim}
+
+    The \texttt{KNearestClassifier} performed remarkably well on the base
+data with 83\% precision and 81\% recall. This is a remarkably good
+result for a very basic model. However with such a low K, it is
+important to keep overfitting in mind.
+
+    \paragraph{In brief: standardizing was
+unhelpful}\label{in-brief-standardizing-was-unhelpful}
+
+    We tested standardization of our feature set using the following models:
++ \texttt{MinMaxScaler} with ranges of {[}-1, 1{]} and {[}0, 1{]} +
+\texttt{StandardScaler} with the range {[}0, 1{]} +
+\texttt{RobustScaler} + \texttt{Normalizer}
+
+The code block below demonstrates the effect of applying each of those
+standardization approaches. (Removing the \texttt{\%\%capture} line will
+allow the output to be generated.) Output is currently omitted for
+parsimony, however, because the central message was that no approach to
+standardization materially improved performance on the KNN test case. As
+a result we have also elided extended discussion of the way the various
+scalers function and the apparent (in)coherence of the transformed
+features.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{o}{\PYZpc{}\PYZpc{}}\PY{k}{capture}
+        mm\PYZus{}neg1\PYZus{}1\PYZus{}scaled\PYZus{}df = apply\PYZus{}scaler(MinMaxScaler(feature\PYZus{}range=(\PYZhy{}1, 1)), e\PYZus{}X\PYZus{}train)
+        print(\PYZdq{}MinMaxScaler [\PYZhy{}1,1]\PYZdq{})
+        mm\PYZus{}neg1\PYZus{}1\PYZus{}scaled\PYZus{}df.head(5)
+        
+        mm\PYZus{}0\PYZus{}1\PYZus{}scaled\PYZus{}df = apply\PYZus{}scaler(MinMaxScaler(feature\PYZus{}range=(0, 1)), e\PYZus{}X\PYZus{}train)
+        print(\PYZdq{}MinMaxScaler [0,1]\PYZdq{})
+        mm\PYZus{}0\PYZus{}1\PYZus{}scaled\PYZus{}df.head(5)
+        
+        standard\PYZus{}scaled\PYZus{}df = apply\PYZus{}scaler(StandardScaler(), e\PYZus{}X\PYZus{}train)
+        print(\PYZdq{}StandardScaler [0,1]\PYZdq{})
+        standard\PYZus{}scaled\PYZus{}df.head(5)
+        
+        r\PYZus{}scaled\PYZus{}df = apply\PYZus{}scaler(RobustScaler(), e\PYZus{}X\PYZus{}train)
+        print(\PYZdq{}RobustScaler [0,1]\PYZdq{})
+        r\PYZus{}scaled\PYZus{}df.head(5)
+        
+        n\PYZus{}scaled\PYZus{}df = apply\PYZus{}scaler(Normalizer(), e\PYZus{}X\PYZus{}train)
+        print(n\PYZus{}scaled\PYZus{}df.shape)
+        n\PYZus{}scaled\PYZus{}df.head(10)
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{c+c1}{\PYZsh{} Testing on the [\PYZhy{}1,1] scaled data again for reference}
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{mm\PYZus{}neg1\PYZus{}1\PYZus{}scaled\PYZus{}df}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 Nearest Neighbors, MinMax scaled [\PYZhy{}1,1]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Testing on the [0,1] scaled data}
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{mm\PYZus{}0\PYZus{}1\PYZus{}scaled\PYZus{}df}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 Nearest Neighbors, MinMax scaled [0,1]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Testing on the [0,1] scaled data}
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{standard\PYZus{}scaled\PYZus{}df}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 Nearest Neighbors, Standard scaled [0,1]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Testing on the Robust scaled data}
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{r\PYZus{}scaled\PYZus{}df}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 Nearest Neighbors, Robust scaled [0,1]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Testing on the Normalized data}
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{n\PYZus{}scaled\PYZus{}df}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 Nearest Neighbors, Normalized}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Testing on the unscaled data again for reference}
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 Nearest Neighbors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: 3 Nearest Neighbors, MinMax scaled [-1,1]
+			weighted avg         | precision:  0.82 | recall:  0.81 | f1-score:  0.81 | 
+Model: 3 Nearest Neighbors, MinMax scaled [0,1]
+			weighted avg         | precision:  0.82 | recall:  0.81 | f1-score:  0.81 | 
+Model: 3 Nearest Neighbors, Standard scaled [0,1]
+			weighted avg         | precision:  0.81 | recall:  0.80 | f1-score:  0.80 | 
+Model: 3 Nearest Neighbors, Robust scaled [0,1]
+			weighted avg         | precision:  0.81 | recall:  0.80 | f1-score:  0.80 | 
+Model: 3 Nearest Neighbors, Normalized
+			weighted avg         | precision:  0.73 | recall:  0.70 | f1-score:  0.71 | 
+Model: 3 Nearest Neighbors
+			weighted avg         | precision:  0.84 | recall:  0.82 | f1-score:  0.82 | 
+
+    \end{Verbatim}
+
+    This test is to determine how much the scaled features affect the KNN
+model, so we have included the previous basic KNearestNeighbors results
+for reference.\\
++ The range used when applying the \texttt{MinMaxScaler} does not
+materially affect the results. + The \texttt{StandardScaler} actually
+performs slightly worse than the \texttt{MinMaxScaler} when used on a
+KNN-3 model. + The \texttt{RobustScaler} performs approximately as well
+as the previous models. + The \texttt{Normalizer} generated the worst
+results of all.
+
+Many of the sklearn models that we will deploy apply some built-in
+standardization before training. Since manually standardizing the
+features has not improved performance, the remainder of our exploration
+will use the unstandardized features.
+
+    \section{Models}\label{models}
+
+    \subsubsection{Logistic Regression}\label{logistic-regression}
+
+    Logistic Regression is a useful model because it is quite interpretable
+(it is possible to extract the coefficients for individual features),
+and when given enough data can perform remarkably well.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Logistic Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: Logistic Regression, with 5 folds
+			Spruce/Fir           | precision:  0.65 | recall:  0.62 | f1-score:  0.64 | 
+			Lodgepole Pine       | precision:  0.50 | recall:  0.58 | f1-score:  0.54 | 
+			Ponderosa Pine       | precision:  0.54 | recall:  0.59 | f1-score:  0.56 | 
+			Cottonwood/Willow    | precision:  0.88 | recall:  0.79 | f1-score:  0.83 | 
+			Aspen                | precision:  0.69 | recall:  0.62 | f1-score:  0.65 | 
+			Douglas Fir          | precision:  0.54 | recall:  0.56 | f1-score:  0.55 | 
+			Krummholz            | precision:  0.84 | recall:  0.87 | f1-score:  0.86 | 
+			macro avg            | precision:  0.66 | recall:  0.66 | f1-score:  0.66 | 
+			micro avg            | precision:  0.66 | recall:  0.66 | f1-score:  0.66 | 
+			weighted avg         | precision:  0.67 | recall:  0.66 | f1-score:  0.67 | 
+
+
+    \end{Verbatim}
+
+    This basic logistic regression gives us a baseline against which to
+compare other models. The basic one-vs-many \texttt{LogisticRegression}
+classifier achieved an average precision of \textasciitilde{}0.67,
+meaning about 2/3 of its predictions are correct. None of the f1 scores
+were stellar (above 0.90), but neither were any as terrible as what we
+saw earlier with a base Naïve Bayes model.
+
+    \subsubsection{K Nearest Neighbors}\label{k-nearest-neighbors}
+
+    We discussed K Nearest Neighbors above when testing how effective
+different forms of scaling were. KNN is a good fit for this type of
+problem because there are a large number of examples relative to the
+number of classes. This means that every new data point will have many
+'neighbors' to choose from. We found that the ideal number of neighbors
+was three as there is enough data to prevent overfitting.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 Nearest Neighbors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: 3 Nearest Neighbors, with 5 folds
+			Spruce/Fir           | precision:  0.66 | recall:  0.74 | f1-score:  0.70 | 
+			Lodgepole Pine       | precision:  0.58 | recall:  0.71 | f1-score:  0.64 | 
+			Ponderosa Pine       | precision:  0.74 | recall:  0.83 | f1-score:  0.78 | 
+			Cottonwood/Willow    | precision:  0.96 | recall:  0.90 | f1-score:  0.93 | 
+			Aspen                | precision:  0.96 | recall:  0.83 | f1-score:  0.89 | 
+			Douglas Fir          | precision:  0.85 | recall:  0.80 | f1-score:  0.82 | 
+			Krummholz            | precision:  0.97 | recall:  0.88 | f1-score:  0.92 | 
+			macro avg            | precision:  0.82 | recall:  0.81 | f1-score:  0.81 | 
+			micro avg            | precision:  0.82 | recall:  0.82 | f1-score:  0.82 | 
+			weighted avg         | precision:  0.84 | recall:  0.82 | f1-score:  0.82 | 
+
+
+    \end{Verbatim}
+
+    What KNN does well is perform relatively well across all of the labels.
+The lowest precision score it achieves is 56\% on
+\texttt{Lodgepole\ Pines}. As we saw in the Section \ref{aboutthedata}
+section, Lodgepole pine trees thrive in areas that can be covered by
+many types of trees. This makes classifying them especially hard with
+KNN as the Lodgepole covered areas often have neighbors of other cover
+types.
+
+    \subsubsection{Support Vector Machines}\label{support-vector-machines}
+
+    Support Vector Machines are a common tool in a data scientist's kit.
+They generally perform well on datasets that are semi linearly
+separable, but they are very slow to train. We will take a look at the
+efficacy of SVMs on this data set, as it may give an indication as to
+how close to linearly separable this data is.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} Basic Linear Support Vector machine }
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linearSVC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: linearSVC, with 5 folds
+			Spruce/Fir           | precision:  0.19 | recall:  0.28 | f1-score:  0.16 | 
+			Lodgepole Pine       | precision:  0.24 | recall:  0.27 | f1-score:  0.14 | 
+			Ponderosa Pine       | precision:  0.35 | recall:  0.30 | f1-score:  0.22 | 
+			Cottonwood/Willow    | precision:  0.54 | recall:  0.75 | f1-score:  0.52 | 
+			Aspen                | precision:  0.09 | recall:  0.35 | f1-score:  0.14 | 
+			Douglas Fir          | precision:  0.43 | recall:  0.20 | f1-score:  0.21 | 
+			Krummholz            | precision:  0.49 | recall:  0.58 | f1-score:  0.48 | 
+			macro avg            | precision:  0.33 | recall:  0.39 | f1-score:  0.27 | 
+			micro avg            | precision:  0.33 | recall:  0.33 | f1-score:  0.33 | 
+			weighted avg         | precision:  0.80 | recall:  0.33 | f1-score:  0.40 | 
+
+
+    \end{Verbatim}
+
+    The standard linearSVC produces very poor results. It has extremely low
+recall, and predicts the \texttt{Aspen} and \texttt{Ponderosa\ Pine}
+categories very poorly. We will take a look at how it does on scaled
+data, as SVC's generally require some standardization. The recommended
+scaling is mean 0 var 1, but we will see how the existing ones do.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{c+c1}{\PYZsh{} Basic Linear Support Vector machine }
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linearSVC, Unscaled}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{mm\PYZus{}neg1\PYZus{}1\PYZus{}scaled\PYZus{}df}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linearSVC, MinMax scaled [\PYZhy{}1,1]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{scaled\PYZus{}X\PYZus{}train} \PY{o}{=} \PY{n}{scale}\PY{p}{(}\PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{)}
+         \PY{n}{scaled\PYZus{}X\PYZus{}train\PYZus{}df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{scaled\PYZus{}X\PYZus{}train}\PY{p}{,}    \PY{c+c1}{\PYZsh{} values}
+                                  \PY{n}{columns}\PY{o}{=}\PY{n}{e\PYZus{}X\PYZus{}train}\PY{o}{.}\PY{n}{columns}\PY{p}{)}  \PY{c+c1}{\PYZsh{} 1st row as the column names}
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scaled\PYZus{}X\PYZus{}train\PYZus{}df}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linearSVC, Scaled to mean=0, variance=1}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: linearSVC, Unscaled
+			weighted avg         | precision:  0.80 | recall:  0.33 | f1-score:  0.40 | 
+Model: linearSVC, MinMax scaled [-1,1]
+			weighted avg         | precision:  0.68 | recall:  0.67 | f1-score:  0.67 | 
+Model: linearSVC, Scaled to mean=0, variance=1
+			weighted avg         | precision:  0.68 | recall:  0.67 | f1-score:  0.67 | 
+
+    \end{Verbatim}
+
+    It turns out that using scaled features made the performance of the
+\texttt{LinearSVC} even worse. That will be the end of the SVC strategy
+for our purposes.
+
+    \subsubsection{Random Forest Model}\label{random-forest-model}
+
+    Random Forests can be extremely effective on datasets with a myriad of
+features that each contain a little information. The base data set
+contains 54 features, 44 of which are binary, making building many of
+the trees quick and easy. In addition, Random Forest models are also
+fairly interpretable, as the most salient features can be extracted from
+the model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RandomForest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: RandomForest, with 5 folds
+			Spruce/Fir           | precision:  0.76 | recall:  0.75 | f1-score:  0.75 | 
+			Lodgepole Pine       | precision:  0.66 | recall:  0.76 | f1-score:  0.70 | 
+			Ponderosa Pine       | precision:  0.82 | recall:  0.80 | f1-score:  0.81 | 
+			Cottonwood/Willow    | precision:  0.97 | recall:  0.93 | f1-score:  0.95 | 
+			Aspen                | precision:  0.93 | recall:  0.89 | f1-score:  0.91 | 
+			Douglas Fir          | precision:  0.82 | recall:  0.84 | f1-score:  0.83 | 
+			Krummholz            | precision:  0.96 | recall:  0.94 | f1-score:  0.95 | 
+			macro avg            | precision:  0.84 | recall:  0.84 | f1-score:  0.84 | 
+			micro avg            | precision:  0.84 | recall:  0.84 | f1-score:  0.84 | 
+			weighted avg         | precision:  0.85 | recall:  0.84 | f1-score:  0.85 | 
+
+
+    \end{Verbatim}
+
+    The base \texttt{RandomForestClassifier} performs quite well out of the
+box, achieving a respectable \textasciitilde{}0.83 across all of our
+metrics. Lets see if using standardized data makes a difference.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{c+c1}{\PYZsh{} Testing on the [0,1] scaled data}
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{mm\PYZus{}0\PYZus{}1\PYZus{}scaled\PYZus{}df}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RandomForest, MinMax scaled [0,1]}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} Testing on the unscaled data again for reference}
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RandomForest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: RandomForest, MinMax scaled [0,1]
+			weighted avg         | precision:  0.85 | recall:  0.84 | f1-score:  0.85 | 
+Model: RandomForest
+			weighted avg         | precision:  0.85 | recall:  0.84 | f1-score:  0.85 | 
+
+    \end{Verbatim}
+
+    As expected, the scaled features did not have an effect on the
+performance of the model. Random Forests are made up of trees that only
+deal with a few features at a time, and do not care if a feature goes
+from {[}0,1{]} or {[}0,10000{]}. The tree's decision boundaries are set
+based on whatever scale that particular feature is at.
+
+    \subsubsection{Gradient Boosting}\label{gradient-boosting}
+
+    Gradient Boosted Decision Trees are a cousin to the Random Forests. When
+a Random Forest is built, it builds many trees in parallel trying to
+maximize the information gain of each tree. In Gradient Boosting, trees
+are made iteratively with each tree attempting to correct the errors of
+the previous one. These tend to perform a little better than Random
+Forests, while maintaining their nice properties.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{XGBClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient Boosted Decision Trees (XGBoost)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: Gradient Boosted Decision Trees (XGBoost)
+			weighted avg         | precision:  0.88 | recall:  0.88 | f1-score:  0.88 | 
+
+    \end{Verbatim}
+
+    Gradient Boosting has proven to be the most effective model so far,
+achieving the very high score of 0.88 across the board. This is a pretty
+great result because classifying new data using a \texttt{XGBClassifier}
+is extremely quick despite the long time it takes to train a new model.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{c+c1}{\PYZsh{} Generate Initial RF and identify most important features}
+         \PY{n}{initialRF} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{initialRF}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{)}
+         \PY{n}{FeatImportance}\PY{p}{(}\PY{n}{initialRF}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Random Forest}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Random Forest Top 10 Features
+
+1. Elevation (0.168353)
+2. Elevation\_Of\_Hydrology (0.156830)
+3. Mean\_Distance\_To\_Feature (0.075489)
+4. Horizontal\_Distance\_To\_Roadways (0.060340)
+5. Horizontal\_Distance\_To\_Fire\_Points (0.048855)
+6. Euclidean\_Distance\_To\_Hydrology (0.046145)
+7. Horizontal\_Distance\_To\_Hydrology (0.040809)
+8. Aspect (0.040489)
+9. Hillshade\_9am (0.038867)
+10. Hillshade\_3pm (0.035661)
+
+Mean Feature Importance 0.017857
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_88_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    By taking a look at the most important features we can see which
+variables are most effective in predicting the cover type. As expected
+the \texttt{Elevation} of an area is the biggest predictor of the
+\texttt{Cover\_Type}. Following the elevation of an area, we see the
+distances to roadways, fire points, and water all having a large effect.
+
+    \subsubsection{Ensemble Model}\label{ensemble-model}
+
+    \paragraph{Approach}\label{approach}
+
+All machine learning models have their strengths and weaknesses. For
+example, most of the models we tested did well when classifying
+\texttt{Cottonwood/Willow}, but poorly for \texttt{Lodgepole\ Pine} data
+points. One way to help mitigate this problem is to combine several
+models into an ensemble model. An ensemble model allows multiple
+individual models to predict a data point, and then uses the results
+from all of them to decide what the true label is. We had three models
+that performed well during training; the Random Forest model, the K
+Nearest Neighbors model, and the Gradient Boosted Decision Trees
+(XGBoost) model. We chose to use 'soft' voting, which uses the sum of
+the predicted probabilities across all of the models to decide on a
+final lable. This type of voting is very good when the models that are
+used in the ensemble excel at predicting different types of labels. By
+combining the three models, we can expect to improve our performance.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}33}]:} \PY{n}{clf2} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{clf4} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n}{clf5} \PY{o}{=} \PY{n}{XGBClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         
+         \PY{n}{eClf} \PY{o}{=} \PY{n}{VotingClassifier}\PY{p}{(}
+             \PY{n}{estimators}\PY{o}{=}\PY{p}{[}
+                 \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Randomforest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf2}\PY{p}{)}\PY{p}{,} 
+                 \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3 Nearest Neighbors}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf4}\PY{p}{)}\PY{p}{,} 
+                 \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{XGBoost}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf5}\PY{p}{)}
+             \PY{p}{]}\PY{p}{,} 
+             \PY{n}{voting}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{soft}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} 
+             \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{eClf}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ensemble}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Ran in \PYZti{}1.5 min}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: ensemble, with 5 folds
+			Spruce/Fir           | precision:  0.77 | recall:  0.81 | f1-score:  0.79 | 
+			Lodgepole Pine       | precision:  0.70 | recall:  0.80 | f1-score:  0.75 | 
+			Ponderosa Pine       | precision:  0.85 | recall:  0.90 | f1-score:  0.87 | 
+			Cottonwood/Willow    | precision:  0.98 | recall:  0.94 | f1-score:  0.96 | 
+			Aspen                | precision:  0.96 | recall:  0.89 | f1-score:  0.93 | 
+			Douglas Fir          | precision:  0.91 | recall:  0.86 | f1-score:  0.89 | 
+			Krummholz            | precision:  0.98 | recall:  0.94 | f1-score:  0.96 | 
+			macro avg            | precision:  0.88 | recall:  0.88 | f1-score:  0.88 | 
+			micro avg            | precision:  0.88 | recall:  0.88 | f1-score:  0.88 | 
+			weighted avg         | precision:  0.89 | recall:  0.88 | f1-score:  0.88 | 
+
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}34}]:} \PY{n}{cross\PYZus{}validate\PYZus{}model}\PY{p}{(}\PY{n}{XGBClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient Boosted Decision Trees (XGBoost)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{verbose}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: Gradient Boosted Decision Trees (XGBoost), with 5 folds
+			Spruce/Fir           | precision:  0.76 | recall:  0.80 | f1-score:  0.78 | 
+			Lodgepole Pine       | precision:  0.71 | recall:  0.78 | f1-score:  0.74 | 
+			Ponderosa Pine       | precision:  0.85 | recall:  0.88 | f1-score:  0.87 | 
+			Cottonwood/Willow    | precision:  0.97 | recall:  0.95 | f1-score:  0.96 | 
+			Aspen                | precision:  0.96 | recall:  0.90 | f1-score:  0.93 | 
+			Douglas Fir          | precision:  0.90 | recall:  0.86 | f1-score:  0.88 | 
+			Krummholz            | precision:  0.98 | recall:  0.94 | f1-score:  0.96 | 
+			macro avg            | precision:  0.88 | recall:  0.87 | f1-score:  0.87 | 
+			micro avg            | precision:  0.88 | recall:  0.88 | f1-score:  0.88 | 
+			weighted avg         | precision:  0.88 | recall:  0.88 | f1-score:  0.88 | 
+
+
+    \end{Verbatim}
+
+    \paragraph{Results}\label{results}
+
+We do see the improvement that we expected by combining the models. A
+few items to note, it that the ensemble is almost perfect when
+predicting \texttt{Cottonwood/Willow}, and had a remarkable improvement
+on \texttt{Lodgepole\ Pine} over even the XGBoost model. In cases where
+a given model is unsure about a data point, none of the predicted
+probabilities are very high, the other models can out vote it if they
+are more sure of the result. Ensemble models have diminishing returns
+though, meaning that adding more and more models will provide less and
+less addition benefit. Using our top 3 models appears to be a sweet spot
+in the number and quality of the models.
+
+    \subsubsection{Ensemble Model}\label{ensemble-model}
+
+    \paragraph{Approach}\label{approach}
+
+In the above analysis, some of the models' performance as measured by
+precision and recall varied widely across cover types. Most of the
+models did well with \texttt{Cottonwood/Willow} and poorly with
+\texttt{Lodgepole\ Pine}. We might be able to improve our results by
+drawing upon the strengths of each different model and take a vote to
+maximize the overall performance.
+
+We use an ensemble model for this purpose. However, we also know that if
+our top model to date, Random Forest (RF), is more accurate than other
+models, there is a possibility that the noise level from the poorly
+performing models will reduce overall performance of the ensemble. To
+diagnose this, we write our code in such a way that we can also see
+inside the ensemble, to assess how each individual model performed.
+
+In addition to RF, we have also tested KNN, LinearSVC and Logistic
+Regression models. We should take the opportunity to check other
+classifiers and see if they can beat our RF model. It is also important
+to model an ensemble of these various models with and optimizing
+different parameters to see if we can find a better alternative model.
+This is a costly and time consuming approach. Executing a GridSearch
+with multiple model ensembles each with 2-3 parameters often takes hours
+of processing even on high-end machines with many CPU cores. We,
+therefore, individually tested and optimized parameters for addition
+models such as MLP Classifier, Ada Boost, Quadratic Discriminant
+Analysis and Gaussian Process Classifier. Addditionally, we also varied
+the hyperparameters for KNN and RF individually to see the best outcome
+in each model. Finally, we created an ensemble model with 9 models in a
+"hard" and a "soft" voting model to see if we can get the best outcome.
+
+\paragraph{Results}\label{results}
+
+Initial result showed what we suspected. The overall effect of the
+ensemble models were lower than the random forest. This is because the
+other models were adding noise to the overall. We then started process
+of elimination to get the best possible combination. Our simple RF can
+only be beaten by an ensemble model composed of KNN and RF.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} Flooowing code has been tried out with multiple options }
+         
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{GridSearchCV}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{VotingClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{gaussian\PYZus{}process} \PY{k}{import} \PY{n}{GaussianProcessClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{gaussian\PYZus{}process}\PY{n+nn}{.}\PY{n+nn}{kernels} \PY{k}{import} \PY{n}{RBF}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{ensemble} \PY{k}{import} \PY{n}{RandomForestClassifier}\PY{p}{,} \PY{n}{AdaBoostClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{neural\PYZus{}network} \PY{k}{import} \PY{n}{MLPClassifier}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{discriminant\PYZus{}analysis} \PY{k}{import} \PY{n}{QuadraticDiscriminantAnalysis}
+         \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{cross\PYZus{}val\PYZus{}score}
+         
+         \PY{c+c1}{\PYZsh{}clf1 = LogisticRegression(solver=\PYZsq{}lbfgs\PYZsq{}, multi\PYZus{}class=\PYZsq{}multinomial\PYZsq{},random\PYZus{}state=1)}
+         \PY{n}{clf1} \PY{o}{=}\PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}
+         \PY{n}{clf2} \PY{o}{=} \PY{n}{RandomForestClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{n}{clf3} \PY{o}{=} \PY{n}{GaussianNB}\PY{p}{(}\PY{p}{)}
+         \PY{n}{clf4} \PY{o}{=} \PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{p}{)}
+         \PY{n}{clf5} \PY{o}{=} \PY{n}{SVC}\PY{p}{(}\PY{n}{gamma}\PY{o}{=}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{C}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{clf6} \PY{o}{=} \PY{n}{GaussianProcessClassifier}\PY{p}{(}\PY{l+m+mf}{1.0} \PY{o}{*} \PY{n}{RBF}\PY{p}{(}\PY{l+m+mf}{1.0}\PY{p}{)}\PY{p}{)}
+         \PY{n}{clf7} \PY{o}{=} \PY{n}{MLPClassifier}\PY{p}{(}\PY{n}{alpha}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,}\PY{n}{activation} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tanh}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{solver} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{lbfgs}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}clf8 = AdaBoostClassifier()}
+         \PY{n}{clf8} \PY{o}{=} \PY{n}{XGBClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}
+         \PY{n}{clf9} \PY{o}{=} \PY{n}{QuadraticDiscriminantAnalysis}\PY{p}{(}\PY{p}{)}
+         \PY{n}{eclf} \PY{o}{=} \PY{n}{VotingClassifier}\PY{p}{(}\PY{n}{estimators}\PY{o}{=}\PY{p}{[}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{knn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf4}\PY{p}{)}\PY{p}{,} \PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{GB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{clf8}\PY{p}{)}\PY{p}{]}\PY{p}{,} \PY{n}{voting}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{hard}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{n}{params} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{knn\PYZus{}\PYZus{}n\PYZus{}neighbors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{7}\PY{p}{,}\PY{p}{]}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{knn\PYZus{}\PYZus{}weights}\PY{l+s+s2}{\PYZdq{}}\PY{p}{:}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{uniform}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{distance}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{\PYZcb{}}
+         
+         \PY{n}{model} \PY{o}{=} \PY{n}{GridSearchCV}\PY{p}{(}\PY{n}{estimator}\PY{o}{=}\PY{n}{eclf}\PY{p}{,} \PY{n}{param\PYZus{}grid}\PY{o}{=}\PY{n}{params}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{)}
+         \PY{n}{testPrediction} \PY{o}{=} \PY{n}{model}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{e\PYZus{}X\PYZus{}test}\PY{p}{)}
+         \PY{n}{testReport} \PY{o}{=} \PY{n}{metrics}\PY{o}{.}\PY{n}{classification\PYZus{}report}\PY{p}{(}\PY{n}{testPrediction}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}test}\PY{p}{,} \PY{n}{output\PYZus{}dict}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{verbose}\PY{o}{=} \PY{k+kc}{True}
+         \PY{n}{reportFields} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{precision}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{recall}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{f1\PYZhy{}score}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{fields} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{testReport}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{verbose} \PY{k}{else} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{weighted avg}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{fieldLabels} \PY{o}{=} \PY{p}{[}\PY{n}{label\PYZus{}names}\PY{p}{[}\PY{n}{field}\PY{p}{]} \PY{k}{if} \PY{n}{field} \PY{o+ow}{in} \PY{n}{label\PYZus{}names}\PY{o}{.}\PY{n}{keys}\PY{p}{(}\PY{p}{)} \PY{k}{else} \PY{n}{field} \PY{k}{for} \PY{n}{field} \PY{o+ow}{in} \PY{n}{fields}\PY{p}{]}
+         \PY{n}{fieldLabels}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Final}\PY{l+s+s2}{\PYZdq{}}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{fields}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+             \PY{n}{output} \PY{o}{=} \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+se}{\PYZbs{}t}\PY{l+s+si}{\PYZob{}fieldLabels[i]:\PYZlt{}20\PYZcb{}}\PY{l+s+s1}{ | }\PY{l+s+s1}{\PYZsq{}}
+             \PY{k}{for} \PY{n}{outputField} \PY{o+ow}{in} \PY{n}{reportFields}\PY{p}{:}
+                 \PY{n}{output} \PY{o}{+}\PY{o}{=} \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZob{}outputField\PYZcb{}}\PY{l+s+s1}{: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{np.mean(testReport[fields[i]][outputField]):\PYZgt{}5.2f\PYZcb{} | }\PY{l+s+s1}{\PYZsq{}}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{output}\PY{p}{)}
+         \PY{k}{for} \PY{n}{clf}\PY{p}{,} \PY{n}{label} \PY{o+ow}{in} \PY{n+nb}{zip}\PY{p}{(}\PY{p}{[}
+                     \PY{c+c1}{\PYZsh{}clf1,}
+                     \PY{n}{clf2}\PY{p}{,} \PY{n}{clf3}\PY{p}{,} \PY{n}{clf4}
+                     \PY{c+c1}{\PYZsh{}, clf5,clf6,clf7,clf8,clf9}
+                     \PY{p}{,} \PY{n}{eclf}\PY{p}{]}
+                     \PY{p}{,} \PY{p}{[} 
+                         \PY{c+c1}{\PYZsh{}\PYZdq{}LinearSVC\PYZdq{},}
+                         \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{RandomForestClassifier}\PY{l+s+s2}{\PYZdq{}}
+                         \PY{c+c1}{\PYZsh{},\PYZdq{}GaussianNB()\PYZdq{}}
+                         \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{KNeighborsClassifier}\PY{l+s+s2}{\PYZdq{}}
+                         \PY{c+c1}{\PYZsh{},\PYZdq{}SVC\PYZdq{},\PYZdq{}GaussianProcessClassifier\PYZdq{}}
+                         \PY{c+c1}{\PYZsh{},\PYZdq{}MLPClassifier\PYZdq{}}
+                         \PY{c+c1}{\PYZsh{}         ,\PYZdq{}AdaBoostClassifier\PYZdq{},\PYZdq{}QuadraticDiscriminantAnalysis\PYZdq{}}
+                         \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Ensemble}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}\PY{p}{:}
+              \PY{n}{scores} \PY{o}{=} \PY{n}{cross\PYZus{}val\PYZus{}score}\PY{p}{(}\PY{n}{clf}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{cv}\PY{o}{=}\PY{l+m+mi}{5}\PY{p}{,} \PY{n}{scoring}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{accuracy}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Accuracy: }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{ (+/\PYZhy{} }\PY{l+s+si}{\PYZpc{}0.2f}\PY{l+s+s2}{) [}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s2}{]}\PY{l+s+s2}{\PYZdq{}} \PY{o}{\PYZpc{}} \PY{p}{(}\PY{n}{scores}\PY{o}{.}\PY{n}{mean}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{scores}\PY{o}{.}\PY{n}{std}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{label}\PY{p}{)}\PY{p}{)} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+		Spruce/Fir           | precision:  0.85 | recall:  0.75 | f1-score:  0.80 | 
+		Lodgepole Pine       | precision:  0.62 | recall:  0.80 | f1-score:  0.70 | 
+		Ponderosa Pine       | precision:  0.89 | recall:  0.83 | f1-score:  0.86 | 
+		Cottonwood/Willow    | precision:  0.97 | recall:  0.90 | f1-score:  0.94 | 
+		Aspen                | precision:  0.97 | recall:  0.91 | f1-score:  0.94 | 
+		Douglas Fir          | precision:  0.81 | recall:  0.96 | f1-score:  0.88 | 
+		Krummholz            | precision:  0.97 | recall:  0.95 | f1-score:  0.96 | 
+		macro avg            | precision:  0.87 | recall:  0.87 | f1-score:  0.87 | 
+		micro avg            | precision:  0.87 | recall:  0.87 | f1-score:  0.87 | 
+		Final                | precision:  0.88 | recall:  0.87 | f1-score:  0.87 | 
+Accuracy: 0.85 (+/- 0.01) [RandomForestClassifier]
+Accuracy: 0.61 (+/- 0.01) [KNeighborsClassifier]
+Accuracy: 0.80 (+/- 0.01) [Ensemble]
+
+    \end{Verbatim}
+
+    \subsection{Master Model Result List}\label{master-model-result-list}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}35}]:} \PY{k}{with} \PY{n}{warnings}\PY{o}{.}\PY{n}{catch\PYZus{}warnings}\PY{p}{(}\PY{n}{record}\PY{o}{=}\PY{k+kc}{False}\PY{p}{)}\PY{p}{:}
+             \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{LogisticRegression}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}test}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{LogisticRegression}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{GaussianNB}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}test}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{GaussianNB}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{KNeighborsClassifier}\PY{p}{(}\PY{n}{n\PYZus{}neighbors}\PY{o}{=}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}test}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{3 Nearest Neighbors}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             
+             \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{LinearSVC}\PY{p}{(}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}test}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{linearSVC}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{RandomForestClassifier}\PY{p}{(}\PY{n}{n\PYZus{}estimators} \PY{o}{=} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}test}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RandomForest}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{XGBClassifier}\PY{p}{(}\PY{n}{max\PYZus{}depth}\PY{o}{=}\PY{l+m+mi}{10}\PY{p}{,} \PY{n}{learning\PYZus{}rate}\PY{o}{=}\PY{l+m+mf}{0.3}\PY{p}{,} \PY{n}{n\PYZus{}estimators}\PY{o}{=}\PY{l+m+mi}{200}\PY{p}{,} \PY{n}{n\PYZus{}jobs}\PY{o}{=}\PY{l+m+mi}{4}\PY{p}{)}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}test}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Gradient Boosted Decision Trees (XGBoost)}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+             \PY{n}{test\PYZus{}model}\PY{p}{(}\PY{n}{eClf}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}train}\PY{p}{,} \PY{n}{e\PYZus{}X\PYZus{}test}\PY{p}{,} \PY{n}{e\PYZus{}y\PYZus{}test}\PY{p}{,} \PY{n}{name}\PY{o}{=}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Ensemble Model}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Model: LogisticRegression
+		Final                | precision:  0.67 | recall:  0.66 | f1-score:  0.67 | 
+Model: GaussianNB
+		Final                | precision:  0.79 | recall:  0.62 | f1-score:  0.67 | 
+Model: 3 Nearest Neighbors
+		Final                | precision:  0.85 | recall:  0.84 | f1-score:  0.84 | 
+Model: linearSVC
+		Final                | precision:  0.82 | recall:  0.33 | f1-score:  0.42 | 
+Model: RandomForest
+		Final                | precision:  0.84 | recall:  0.84 | f1-score:  0.84 | 
+Model: Gradient Boosted Decision Trees (XGBoost)
+		Final                | precision:  0.88 | recall:  0.87 | f1-score:  0.88 | 
+Model: Ensemble Model
+		Final                | precision:  0.89 | recall:  0.89 | f1-score:  0.89 | 
+
+    \end{Verbatim}
+
+    \section{Results}\label{results}
+
+    The above results show that the bet possible model that gives consistant
+results is the Gradient Boosted Decision Tree. We could reach 88\%
+precision and recall. Our experiment with the ensemble model could not
+improve the accuracy any further. our best modes, XGBClassifier, with
+learning rate of 0.3 and maximum depth of 10, when run wiht 100
+estimators gives us the 88\% precision, 87\% recall rate and F1 Score of
+.88.
+
+This model runs reasonably fast considering the complexity of the
+dataset. We were also careful to not to to make this model overfitted
+with the given dataset.
+
+    \section{Conclusion}\label{conclusion}
+
+    \paragraph{Most Important Features}\label{most-important-features}
+
+The story that came out of the data was, in many ways, were quire
+counter intuitive. At the end of the analysis, the key components. 1.
+Elevation (0.162398) 2. Elevation\_Of\_Hydrology (0.151600) 3.
+Mean\_Distance\_To\_Feature (0.070873) 4.
+Horizontal\_Distance\_To\_Roadways (0.070431) 5.
+Euclidean\_Distance\_To\_Hydrology (0.057154) 6.
+Horizontal\_Distance\_To\_Fire\_Points (0.051782) 7. Hillshade\_Noon
+(0.036232) 8. Aspect (0.035743) 9. Hillshade\_9am (0.035738) 10.
+Vertical\_Distance\_To\_Hydrology (0.035153) We were surpised that all
+the details of the soil type, at the end, did not really matter for this
+dataset. It is true in this case may not be universally true.
+
+\paragraph{What can be done to improve
+further}\label{what-can-be-done-to-improve-further}
+
+\begin{verbatim}
+1. More Data Engineering
+Due to the time restrictions and large number of variables, we were not able to extract all possibly new features that could improve the models further.
+2. Mode model and parameter testing in ensemble
+The processing power needed to run complex combination of models, parameters take very long time to proces. and hence we could not test all possible combinations.
+\end{verbatim}
+
+    \section{Annexes}\label{annexes}
+
+    \subsection{Annex A: Exploratory Data
+Analysis}\label{annex-a-exploratory-data-analysis}
+
+This appendix contains some of our exploratory data analysis. This
+includes the code used to generate the 4-number summaries of our data
+reflected in the Section \ref{aboutthedata} and other summaries. The
+most informative portions are replicated in the main body of the report.
+
+After we load the data from the source file, we examine the basic
+characteristics of the dataset. 1. We expect to see all of the features
+discussed above represented in our column names 1. As there is no
+separate dataset containing the labels for our observations, we would
+expect to see the 'Cover\_Type' variable in our data 1. We would expect
+to see a shape of (15120, 55) - the 54 features plus our label column
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}21}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Columns: }\PY{l+s+si}{\PYZob{}full\PYZus{}data.columns\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Shape: }\PY{l+s+si}{\PYZob{}full\PYZus{}data.shape\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Columns: Index(['Elevation', 'Aspect', 'Slope', 'Horizontal\_Distance\_To\_Hydrology',
+       'Vertical\_Distance\_To\_Hydrology', 'Horizontal\_Distance\_To\_Roadways',
+       'Hillshade\_9am', 'Hillshade\_Noon', 'Hillshade\_3pm',
+       'Horizontal\_Distance\_To\_Fire\_Points', 'Wilderness\_Area1',
+       'Wilderness\_Area2', 'Wilderness\_Area3', 'Wilderness\_Area4',
+       'Soil\_Type1', 'Soil\_Type2', 'Soil\_Type3', 'Soil\_Type4', 'Soil\_Type5',
+       'Soil\_Type6', 'Soil\_Type7', 'Soil\_Type8', 'Soil\_Type9', 'Soil\_Type10',
+       'Soil\_Type11', 'Soil\_Type12', 'Soil\_Type13', 'Soil\_Type14',
+       'Soil\_Type15', 'Soil\_Type16', 'Soil\_Type17', 'Soil\_Type18',
+       'Soil\_Type19', 'Soil\_Type20', 'Soil\_Type21', 'Soil\_Type22',
+       'Soil\_Type23', 'Soil\_Type24', 'Soil\_Type25', 'Soil\_Type26',
+       'Soil\_Type27', 'Soil\_Type28', 'Soil\_Type29', 'Soil\_Type30',
+       'Soil\_Type31', 'Soil\_Type32', 'Soil\_Type33', 'Soil\_Type34',
+       'Soil\_Type35', 'Soil\_Type36', 'Soil\_Type37', 'Soil\_Type38',
+       'Soil\_Type39', 'Soil\_Type40', 'Cover\_Type'],
+      dtype='object')
+Shape: (15120, 55)
+
+    \end{Verbatim}
+
+    We take a look at the first several observations to get a sense for the
+nature of the data.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}22}]:} \PY{n}{full\PYZus{}features}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}22}]:}     Elevation  Aspect  Slope  Horizontal\_Distance\_To\_Hydrology  \textbackslash{}
+         Id                                                               
+         1        2596      51      3                               258   
+         2        2590      56      2                               212   
+         3        2804     139      9                               268   
+         4        2785     155     18                               242   
+         5        2595      45      2                               153   
+         
+             Vertical\_Distance\_To\_Hydrology  Horizontal\_Distance\_To\_Roadways  \textbackslash{}
+         Id                                                                    
+         1                                0                              510   
+         2                               -6                              390   
+         3                               65                             3180   
+         4                              118                             3090   
+         5                               -1                              391   
+         
+             Hillshade\_9am  Hillshade\_Noon  Hillshade\_3pm  \textbackslash{}
+         Id                                                 
+         1             221             232            148   
+         2             220             235            151   
+         3             234             238            135   
+         4             238             238            122   
+         5             220             234            150   
+         
+             Horizontal\_Distance\_To\_Fire\_Points     {\ldots}       Soil\_Type31  Soil\_Type32  \textbackslash{}
+         Id                                         {\ldots}                                  
+         1                                 6279     {\ldots}                 0            0   
+         2                                 6225     {\ldots}                 0            0   
+         3                                 6121     {\ldots}                 0            0   
+         4                                 6211     {\ldots}                 0            0   
+         5                                 6172     {\ldots}                 0            0   
+         
+             Soil\_Type33  Soil\_Type34  Soil\_Type35  Soil\_Type36  Soil\_Type37  \textbackslash{}
+         Id                                                                    
+         1             0            0            0            0            0   
+         2             0            0            0            0            0   
+         3             0            0            0            0            0   
+         4             0            0            0            0            0   
+         5             0            0            0            0            0   
+         
+             Soil\_Type38  Soil\_Type39  Soil\_Type40  
+         Id                                         
+         1             0            0            0  
+         2             0            0            0  
+         3             0            0            0  
+         4             0            0            0  
+         5             0            0            0  
+         
+         [5 rows x 52 columns]
+\end{Verbatim}
+            
+    We'll also want to get a high-level summary of each of our features.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}23}]:} \PY{c+c1}{\PYZsh{} Small function to give us a bird\PYZsq{}s\PYZhy{}eye summary of the data}
+         \PY{k}{def} \PY{n+nf}{five\PYZus{}num\PYZus{}summary}\PY{p}{(}\PY{n}{df}\PY{p}{,} \PY{n}{column}\PY{p}{)}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Column: }\PY{l+s+si}{\PYZob{}column:\PYZlt{}35\PYZcb{}}\PY{l+s+s1}{ | }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+}
+                   \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Max value: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{np.max(df[column]):\PYZgt{}6\PYZcb{} | }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} 
+                   \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Min value: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{np.min(df[column]):\PYZgt{}7.2f\PYZcb{} | }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+}
+                   \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mean: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{np.mean(df[column]):\PYZgt{}7.2f\PYZcb{} | }\PY{l+s+s1}{\PYZsq{}} \PY{o}{+}
+                   \PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Median: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{np.median(df[column]):\PYZgt{}7.2f\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{col\PYZus{}name} \PY{o+ow}{in} \PY{n}{full\PYZus{}features}\PY{o}{.}\PY{n}{columns}\PY{p}{:}
+             \PY{n}{five\PYZus{}num\PYZus{}summary}\PY{p}{(}\PY{n}{full\PYZus{}features}\PY{p}{,} \PY{n}{col\PYZus{}name}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Column: Elevation                           | Max value:   3849 | Min value: 1863.00 | Mean: 2749.32 | Median: 2752.00
+Column: Aspect                              | Max value:    360 | Min value:    0.00 | Mean:  156.68 | Median:  126.00
+Column: Slope                               | Max value:     52 | Min value:    0.00 | Mean:   16.50 | Median:   15.00
+Column: Horizontal\_Distance\_To\_Hydrology    | Max value:   1343 | Min value:    0.00 | Mean:  227.20 | Median:  180.00
+Column: Vertical\_Distance\_To\_Hydrology      | Max value:    554 | Min value: -146.00 | Mean:   51.08 | Median:   32.00
+Column: Horizontal\_Distance\_To\_Roadways     | Max value:   6890 | Min value:    0.00 | Mean: 1714.02 | Median: 1316.00
+Column: Hillshade\_9am                       | Max value:    254 | Min value:    0.00 | Mean:  212.70 | Median:  220.00
+Column: Hillshade\_Noon                      | Max value:    254 | Min value:   99.00 | Mean:  218.97 | Median:  223.00
+Column: Hillshade\_3pm                       | Max value:    248 | Min value:    0.00 | Mean:  135.09 | Median:  138.00
+Column: Horizontal\_Distance\_To\_Fire\_Points  | Max value:   6993 | Min value:    0.00 | Mean: 1511.15 | Median: 1256.00
+Column: Wilderness\_Area1                    | Max value:      1 | Min value:    0.00 | Mean:    0.24 | Median:    0.00
+Column: Wilderness\_Area2                    | Max value:      1 | Min value:    0.00 | Mean:    0.03 | Median:    0.00
+Column: Wilderness\_Area3                    | Max value:      1 | Min value:    0.00 | Mean:    0.42 | Median:    0.00
+Column: Wilderness\_Area4                    | Max value:      1 | Min value:    0.00 | Mean:    0.31 | Median:    0.00
+Column: Soil\_Type1                          | Max value:      1 | Min value:    0.00 | Mean:    0.02 | Median:    0.00
+Column: Soil\_Type2                          | Max value:      1 | Min value:    0.00 | Mean:    0.04 | Median:    0.00
+Column: Soil\_Type3                          | Max value:      1 | Min value:    0.00 | Mean:    0.06 | Median:    0.00
+Column: Soil\_Type4                          | Max value:      1 | Min value:    0.00 | Mean:    0.06 | Median:    0.00
+Column: Soil\_Type5                          | Max value:      1 | Min value:    0.00 | Mean:    0.01 | Median:    0.00
+Column: Soil\_Type6                          | Max value:      1 | Min value:    0.00 | Mean:    0.04 | Median:    0.00
+Column: Soil\_Type8                          | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type9                          | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type10                         | Max value:      1 | Min value:    0.00 | Mean:    0.14 | Median:    0.00
+Column: Soil\_Type11                         | Max value:      1 | Min value:    0.00 | Mean:    0.03 | Median:    0.00
+Column: Soil\_Type12                         | Max value:      1 | Min value:    0.00 | Mean:    0.02 | Median:    0.00
+Column: Soil\_Type13                         | Max value:      1 | Min value:    0.00 | Mean:    0.03 | Median:    0.00
+Column: Soil\_Type14                         | Max value:      1 | Min value:    0.00 | Mean:    0.01 | Median:    0.00
+Column: Soil\_Type16                         | Max value:      1 | Min value:    0.00 | Mean:    0.01 | Median:    0.00
+Column: Soil\_Type17                         | Max value:      1 | Min value:    0.00 | Mean:    0.04 | Median:    0.00
+Column: Soil\_Type18                         | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type19                         | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type20                         | Max value:      1 | Min value:    0.00 | Mean:    0.01 | Median:    0.00
+Column: Soil\_Type21                         | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type22                         | Max value:      1 | Min value:    0.00 | Mean:    0.02 | Median:    0.00
+Column: Soil\_Type23                         | Max value:      1 | Min value:    0.00 | Mean:    0.05 | Median:    0.00
+Column: Soil\_Type24                         | Max value:      1 | Min value:    0.00 | Mean:    0.02 | Median:    0.00
+Column: Soil\_Type25                         | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type26                         | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type27                         | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type28                         | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type29                         | Max value:      1 | Min value:    0.00 | Mean:    0.09 | Median:    0.00
+Column: Soil\_Type30                         | Max value:      1 | Min value:    0.00 | Mean:    0.05 | Median:    0.00
+Column: Soil\_Type31                         | Max value:      1 | Min value:    0.00 | Mean:    0.02 | Median:    0.00
+Column: Soil\_Type32                         | Max value:      1 | Min value:    0.00 | Mean:    0.05 | Median:    0.00
+Column: Soil\_Type33                         | Max value:      1 | Min value:    0.00 | Mean:    0.04 | Median:    0.00
+Column: Soil\_Type34                         | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type35                         | Max value:      1 | Min value:    0.00 | Mean:    0.01 | Median:    0.00
+Column: Soil\_Type36                         | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type37                         | Max value:      1 | Min value:    0.00 | Mean:    0.00 | Median:    0.00
+Column: Soil\_Type38                         | Max value:      1 | Min value:    0.00 | Mean:    0.05 | Median:    0.00
+Column: Soil\_Type39                         | Max value:      1 | Min value:    0.00 | Mean:    0.04 | Median:    0.00
+Column: Soil\_Type40                         | Max value:      1 | Min value:    0.00 | Mean:    0.03 | Median:    0.00
+
+    \end{Verbatim}
+
+    \subsubsection{Checking Label Imbalance}\label{checking-label-imbalance}
+
+    It would be useful for us to understand whether we have an imbalanced
+dataset (i.e., one where certain labels/categories are overrepresented
+relative to others.) Here we'll quickly describe our training and test
+labels and just make sure our classes are balanced. We can do this both
+graphically and numerically.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}24}]:} \PY{n}{f}\PY{p}{,} \PY{p}{(}\PY{n}{ax1}\PY{p}{,} \PY{n}{ax2}\PY{p}{)} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{subplots}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{,} \PY{n}{sharey}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{bins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)} \PY{o}{+} \PY{l+m+mf}{0.5}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.8}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{xaxis}\PY{o}{.}\PY{n}{set\PYZus{}major\PYZus{}locator}\PY{p}{(}\PY{n}{ticker}\PY{o}{.}\PY{n}{MultipleLocator}\PY{p}{(}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+         \PY{n}{ax1}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Labels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{hist}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{bins}\PY{p}{,} \PY{n}{width} \PY{o}{=} \PY{l+m+mf}{0.8}\PY{p}{)}
+         \PY{n}{ax2}\PY{o}{.}\PY{n}{set\PYZus{}title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Test Labels}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{xticks}\PY{p}{(}\PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{8}\PY{p}{)}\PY{p}{)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_113_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}25}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{full\PYZus{}labels}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{stats}\PY{o}{.}\PY{n}{describe}\PY{p}{(}\PY{n}{y\PYZus{}test}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{8}\PY{p}{)}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{i = }\PY{l+s+si}{\PYZob{}i\PYZcb{}}\PY{l+s+s1}{: Train Ct: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(full\PYZus{}labels==i).sum():\PYZgt{}5\PYZcb{} | Test Ct: }\PY{l+s+s1}{\PYZob{}}\PY{l+s+s1}{(y\PYZus{}test==i).sum():\PYZgt{}5\PYZcb{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+DescribeResult(nobs=15120, minmax=(1, 7), mean=4.0, variance=4.000264567762418, skewness=0.0, kurtosis=-1.25)
+DescribeResult(nobs=1512, minmax=(1, 7), mean=3.947751322751323, variance=4.034991631037296, skewness=0.010853316785871835, kurtosis=-1.2670058892892788)
+i = 0: Train Ct:     0 | Test Ct:     0
+i = 1: Train Ct:  2160 | Test Ct:   234
+i = 2: Train Ct:  2160 | Test Ct:   216
+i = 3: Train Ct:  2160 | Test Ct:   210
+i = 4: Train Ct:  2160 | Test Ct:   215
+i = 5: Train Ct:  2160 | Test Ct:   209
+i = 6: Train Ct:  2160 | Test Ct:   228
+i = 7: Train Ct:  2160 | Test Ct:   200
+
+    \end{Verbatim}
+
+    It appears that our classes are quite well-balanced in both our training
+data and the test data.
+
+This is good both because we will not need to deliberately compensate
+for imbalances and because our model will be unable to achieve
+reasonable performance simply by guessing the modal category. (Doing so
+would give accuracy on the training set of 1741/12096 = 0.145, and then
+accuracy on the test set of 411/3024 = 0.136.)
+
+    One thing of note is that the \texttt{Soil\_Type7} and
+\texttt{Soil\_Type15} are never true, so this feature tells us nothing.
+These features should be removed before any modeling is done.
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}26}]:} \PY{n}{bins} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{arange}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{360}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}
+         \PY{n}{cut} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{45}\PY{p}{,} \PY{l+m+mi}{90}\PY{p}{,} \PY{l+m+mi}{135}\PY{p}{,} \PY{l+m+mi}{180}\PY{p}{,} \PY{l+m+mi}{225}\PY{p}{,} \PY{l+m+mi}{270}\PY{p}{,} \PY{l+m+mi}{315}\PY{p}{,} \PY{l+m+mi}{360}\PY{p}{]}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{bins}\PY{p}{)}
+         \PY{n}{pd}\PY{o}{.}\PY{n}{cut}\PY{p}{(}\PY{n}{bins}\PY{p}{,} \PY{n}{cut}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[  0  10  20  30  40  50  60  70  80  90 100 110 120 130 140 150 160 170
+ 180 190 200 210 220 230 240 250 260 270 280 290 300 310 320 330 340 350]
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}26}]:} [NaN, (0, 45], (0, 45], (0, 45], (0, 45], {\ldots}, (270, 315], (315, 360], (315, 360], (315, 360], (315, 360]]
+         Length: 36
+         Categories (8, interval[int64]): [(0, 45] < (45, 90] < (90, 135] < (135, 180] < (180, 225] < (225, 270] < (270, 315] < (315, 360]]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}27}]:} \PY{n}{full\PYZus{}data}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total\PYZus{}Hillshade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{full\PYZus{}data}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}9am}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}Noon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}3pm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{sum}\PY{p}{(}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+         \PY{n}{full\PYZus{}data}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}9am}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}Noon}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}3pm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Total\PYZus{}Hillshade}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{20}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}27}]:}     Hillshade\_9am  Hillshade\_Noon  Hillshade\_3pm  Total\_Hillshade
+         Id                                                               
+         1             221             232            148              601
+         2             220             235            151              606
+         3             234             238            135              607
+         4             238             238            122              598
+         5             220             234            150              604
+         6             230             237            140              607
+         7             222             225            138              585
+         8             222             230            144              596
+         9             223             221            133              577
+         10            228             219            124              571
+         11            218             243            161              622
+         12            234             240            136              610
+         13            248             224             92              564
+         14            213             247            170              630
+         15            224             240            151              615
+         16            224             225            137              586
+         17            216             239            161              616
+         18            228             227            133              588
+         19            214             232            156              602
+         20            220             228            144              592
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{}\PYZsh{} Make 3D scatterplot to explore water, elevation, and hillshade concurrently}
+         
+         \PY{o}{\PYZpc{}}\PY{k}{matplotlib} qt
+         \PY{k+kn}{from} \PY{n+nn}{mpl\PYZus{}toolkits}\PY{n+nn}{.}\PY{n+nn}{mplot3d} \PY{k}{import} \PY{n}{Axes3D}
+         
+         \PY{n}{sparsifier} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{randint}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{full\PYZus{}features}\PY{o}{.}\PY{n}{shape}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{l+m+mi}{5000}\PY{p}{)}
+         
+         \PY{n}{sparsified} \PY{o}{=} \PY{n}{full\PYZus{}features}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{sparsifier}\PY{p}{,}\PY{p}{:}\PY{p}{]}
+         \PY{n}{sparse\PYZus{}labels} \PY{o}{=} \PY{n}{full\PYZus{}labels}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{n}{sparsifier}\PY{p}{]}
+         \PY{c+c1}{\PYZsh{} print(f\PYZsq{}Length of sparsified dataset\PYZbs{}n: \PYZob{}sparsified\PYZcb{}\PYZsq{})}
+         
+         \PY{n}{full\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Euclidean\PYZus{}distance\PYZus{}to\PYZus{}water}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{full\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Horizontal\PYZus{}Distance\PYZus{}To\PYZus{}Hydrology}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{+} \PY{n}{full\PYZus{}features}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Vertical\PYZus{}Distance\PYZus{}To\PYZus{}Hydrology}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2}\PY{p}{)}
+         \PY{n}{dist\PYZus{}to\PYZus{}water} \PY{o}{=} \PY{n}{sparsified}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Euclidean\PYZus{}distance\PYZus{}to\PYZus{}water}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{altitude} \PY{o}{=} \PY{n}{sparsified}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Elevation}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{hillshade} \PY{o}{=} \PY{n}{sparsified}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hillshade\PYZus{}3pm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+         \PY{n}{color\PYZus{}dict} \PY{o}{=} \PY{p}{\PYZob{}}\PY{l+m+mi}{1}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}A7C6ED}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}BA0C2F}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}651D32}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}8C8985}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}
+                       \PY{l+m+mi}{5}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}212721}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}002F6C}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{:} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZsh{}FFC000}\PY{l+s+s1}{\PYZsq{}}\PY{p}{\PYZcb{}}
+         \PY{n}{coloration} \PY{o}{=} \PY{p}{[}\PY{n}{color\PYZus{}dict}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{sparse\PYZus{}labels}\PY{p}{]}
+         \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+         \PY{n}{ax} \PY{o}{=} \PY{n}{fig}\PY{o}{.}\PY{n}{add\PYZus{}subplot}\PY{p}{(}\PY{l+m+mi}{111}\PY{p}{,} \PY{n}{projection}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{3d}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{hillshade}\PY{p}{,} \PY{n}{dist\PYZus{}to\PYZus{}water}\PY{p}{,} \PY{n}{altitude}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{n}{coloration}\PY{p}{,} \PY{n}{alpha}\PY{o}{=}\PY{l+m+mf}{0.6}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} ax.title(\PYZsq{}Forest cover categorization\PYZbs{}nby distance to water and hillshade\PYZsq{})}
+         \PY{n}{ax}\PY{o}{.}\PY{n}{view\PYZus{}init}\PY{p}{(}\PY{l+m+mi}{30}\PY{p}{,} \PY{l+m+mi}{115}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} mouse\PYZus{}init(rotate\PYZus{}btn=1, zoom\PYZus{}btn=3)}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        KeyError                                  Traceback (most recent call last)
+
+        C:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}indexes\textbackslash{}base.py in get\_loc(self, key, method, tolerance)
+       2524             try:
+    -> 2525                 return self.\_engine.get\_loc(key)
+       2526             except KeyError:
+    
+
+        pandas/\_libs/index.pyx in pandas.\_libs.index.IndexEngine.get\_loc()
+    
+
+        pandas/\_libs/index.pyx in pandas.\_libs.index.IndexEngine.get\_loc()
+    
+
+        pandas/\_libs/hashtable\_class\_helper.pxi in pandas.\_libs.hashtable.PyObjectHashTable.get\_item()
+    
+
+        pandas/\_libs/hashtable\_class\_helper.pxi in pandas.\_libs.hashtable.PyObjectHashTable.get\_item()
+    
+
+        KeyError: 'Euclidean\_distance\_to\_water'
+
+        
+    During handling of the above exception, another exception occurred:
+    
+
+        KeyError                                  Traceback (most recent call last)
+
+        <ipython-input-28-dce146af1cbf> in <module>()
+         11 
+         12 full\_features['Euclidean\_distance\_to\_water'] = np.sqrt(full\_features['Horizontal\_Distance\_To\_Hydrology']**2 + full\_features['Vertical\_Distance\_To\_Hydrology']**2)
+    ---> 13 dist\_to\_water = sparsified['Euclidean\_distance\_to\_water']
+         14 altitude = sparsified['Elevation']
+         15 hillshade = sparsified['Hillshade\_3pm']
+    
+
+        C:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}frame.py in \_\_getitem\_\_(self, key)
+       2137             return self.\_getitem\_multilevel(key)
+       2138         else:
+    -> 2139             return self.\_getitem\_column(key)
+       2140 
+       2141     def \_getitem\_column(self, key):
+    
+
+        C:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}frame.py in \_getitem\_column(self, key)
+       2144         \# get column
+       2145         if self.columns.is\_unique:
+    -> 2146             return self.\_get\_item\_cache(key)
+       2147 
+       2148         \# duplicate columns \& possible reduce dimensionality
+    
+
+        C:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}generic.py in \_get\_item\_cache(self, item)
+       1840         res = cache.get(item)
+       1841         if res is None:
+    -> 1842             values = self.\_data.get(item)
+       1843             res = self.\_box\_item\_values(item, values)
+       1844             cache[item] = res
+    
+
+        C:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}internals.py in get(self, item, fastpath)
+       3841 
+       3842             if not isna(item):
+    -> 3843                 loc = self.items.get\_loc(item)
+       3844             else:
+       3845                 indexer = np.arange(len(self.items))[isna(self.items)]
+    
+
+        C:\textbackslash{}ProgramData\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}indexes\textbackslash{}base.py in get\_loc(self, key, method, tolerance)
+       2525                 return self.\_engine.get\_loc(key)
+       2526             except KeyError:
+    -> 2527                 return self.\_engine.get\_loc(self.\_maybe\_cast\_indexer(key))
+       2528 
+       2529         indexer = self.get\_indexer([key], method=method, tolerance=tolerance)
+    
+
+        pandas/\_libs/index.pyx in pandas.\_libs.index.IndexEngine.get\_loc()
+    
+
+        pandas/\_libs/index.pyx in pandas.\_libs.index.IndexEngine.get\_loc()
+    
+
+        pandas/\_libs/hashtable\_class\_helper.pxi in pandas.\_libs.hashtable.PyObjectHashTable.get\_item()
+    
+
+        pandas/\_libs/hashtable\_class\_helper.pxi in pandas.\_libs.hashtable.PyObjectHashTable.get\_item()
+    
+
+        KeyError: 'Euclidean\_distance\_to\_water'
+
+    \end{Verbatim}
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
